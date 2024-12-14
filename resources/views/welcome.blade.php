@@ -1,5 +1,5 @@
 @extends('partials.layout')
-@section('title', 'Home')
+@section('title', 'HomeMeRR')
 @section('content')
     <div class="container mx-auto">
         <div class="my-2 flex justify-center">

@@ -1,32 +1,41 @@
 @extends('partials.layout')
 @section('title', 'Edit ' . $post->title)
 @section('content')
-    <div class="container mx-auto">
-        <div class="card bg-base-300 shadow-xl w-1/2 mx-auto">
+    <div class="container mx-auto px-8 py-10">
+        <div class="card bg-gray-800 text-white shadow-xl w-full md:w-1/2 mx-auto p-8 rounded-lg">
             <div class="card-body">
                 <form action="{{ route('posts.update', ['post' => $post]) }}" method="POST">
                     @csrf
                     @method('PUT')
-                    <label class="form-control w-full">
+
+                    <!-- Title input -->
+                    <label class="form-control w-full mb-6">
                         <div class="label">
-                            <span class="label-text">Title</span>
+                            <span class="label-text text-lg font-semibold">Title</span>
                         </div>
-                        <input name="title" type="text" placeholder="Title" value="{{ old('title') ?? $post->title }}"
-                            class="input input-bordered @error('title') input-error @enderror w-full" required autofocus/>
+                        <input
+                            name="title"
+                            type="text"
+                            placeholder="Enter post title"
+                            value="{{ old('title') ?? $post->title }}"
+                            class="input input-bordered w-full text-lg p-3 rounded-md @error('title') input-error @enderror"
+                            required autofocus />
                         <div class="label">
                             @error('title')
                                 <span class="label-text-alt text-error">{{ $message }}</span>
                             @enderror
                         </div>
                     </label>
-                    <label class="form-control w-full">
+
+                    <!-- Content input -->
+                    <label class="form-control w-full mb-6">
                         <div class="label">
-                            <span class="label-text">Content</span>
+                            <span class="label-text text-lg font-semibold">Content</span>
                         </div>
                         <textarea
                             name="body"
                             rows="12"
-                            class="textarea textarea-bordered @error('body') textarea-error @enderror"
+                            class="textarea textarea-bordered w-full text-lg p-3 rounded-md @error('body') textarea-error @enderror"
                             required
                             placeholder="Write something cool...">{{ old('body') ?? $post->body }}</textarea>
                         <div class="label">
@@ -35,7 +44,10 @@
                             @enderror
                         </div>
                     </label>
-                    <input type="submit" class="btn btn-primary" value="Update" />
+
+                    <!-- Submit button -->
+                    <div class="mt-6">
+                        <input type="submit" class="btn btn-primary w-full py-3 text-lg rounded-lg" value="Update" />
                     </div>
                 </form>
             </div>

@@ -30,6 +30,9 @@
                         <summary>Admin</summary>
                         <ul class="p-2">
                             <li><a href="{{ route('posts.index') }}">Posts</a></li>
+                            <li><a href="{{ route('comments.index') }}">Comments</a></li>
+                            <li><a href="{{ route('users.index') }}">Users</a></li>
+                            <li><a href="{{ route('tags.index') }}">Tags</a></li>
                         </ul>
                     </details>
                 </li>

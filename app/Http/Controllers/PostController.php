@@ -85,8 +85,29 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        
+        \Log::info('Image for post ' . $post->id . ': ' . $post->image);
+    
+        
+        if ($post->image) {
+            $imagePath = 'public/' . $post->image;  
+    
+           
+            if (Storage::exists($imagePath)) {
+      
+                Storage::delete($imagePath);
+                \Log::info('Deleted image: ' . $imagePath);
+            } else {
+                \Log::warning('Image not found or does not exist: ' . $imagePath);
+            }
+        } else {
+            \Log::warning('No image field in post: ' . $post->id);
+        }
+    
 
         $post->delete();
-        return redirect()->back();
+    
+        return redirect()->back()->with('success', 'Post and image deleted successfully.');
     }
+    
 }

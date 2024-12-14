@@ -18,9 +18,11 @@ class Post extends Model
     public function snippet(): Attribute {
         return Attribute::get(fn () => explode("\n\n", $this->body)[0]);
     }
+
     public function displayBody(): Attribute {
         return Attribute::get(fn () => nl2br($this->body));
     }
+
     public function displayImage(): Attribute {
         return Attribute::get(function () {
             if($this->image === null || parse_url($this->image, PHP_URL_SCHEME)){
@@ -39,8 +41,9 @@ class Post extends Model
         });
     }
 
+    
     public function user(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class)->withDefault();  
     }
 
     public function comments(){
@@ -58,7 +61,11 @@ class Post extends Model
     protected static function booted(): void
     {
         static::deleting(function (Post $post) {
-            Storage::disk('public')->delete($post->image);
+            if ($post->image && Storage::disk('public')->exists($post->image)) {
+                
+                Storage::disk('public')->delete($post->image);
+            }
         });
     }
+    
 }

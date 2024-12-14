@@ -19,6 +19,7 @@
         @if(isset($links) && $links)
             <p class="text-neutral-content"><b>Comments: </b>{{ $post->comments_count }}</p>
             <p class="text-neutral-content"><b>Likes: </b>{{ $post->likes_count }}</p>
+            
 
             <div class="card-actions justify-end">
                 <form action="{{route('like', ['post' => $post])}}" method="POST">
@@ -30,6 +31,8 @@
                     @endif
                 </form>
                 <a href="{{ route('post', ['post' => $post]) }}" class="btn btn-primary">Read more</a>
+                <a href="{{ route('comments.create', $post) }}" class="btn btn-primary">Add Comment</a>
+                <a href="{{ route('tags.create', ['post' => $post->id]) }}" class="btn btn-primary">Add tag</a>
             </div>
         @endif
     </div>
